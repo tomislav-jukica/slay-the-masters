@@ -1518,7 +1518,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1404112260}
-  - component: {fileID: 1404112261}
   m_Layer: 5
   m_Name: Discard Pile
   m_TagString: Untagged
@@ -1545,31 +1544,6 @@ RectTransform:
   m_AnchoredPosition: {x: -798.2401, y: -366.75}
   m_SizeDelta: {x: 363.51978, y: 346.5}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1404112261
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1404112259}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Padding:
-    m_Left: 0
-    m_Right: 0
-    m_Top: 0
-    m_Bottom: 0
-  m_ChildAlignment: 4
-  m_Spacing: 0
-  m_ChildForceExpandWidth: 0
-  m_ChildForceExpandHeight: 0
-  m_ChildControlWidth: 0
-  m_ChildControlHeight: 0
-  m_ChildScaleWidth: 0
-  m_ChildScaleHeight: 0
 --- !u!1 &1417377998
 GameObject:
   m_ObjectHideFlags: 0
@@ -1582,6 +1556,7 @@ GameObject:
   - component: {fileID: 1417378002}
   - component: {fileID: 1417378001}
   - component: {fileID: 1417378000}
+  - component: {fileID: 1417378003}
   m_Layer: 5
   m_Name: Player
   m_TagString: Untagged
@@ -1627,14 +1602,19 @@ MonoBehaviour:
   maxAP: 3
   currentAP: 0
   regenerationAP: 3
-  drawSize: 2
-  maxHandSize: 4
+  drawSize: 3
+  maxHandSize: 6
   deck:
+  - {fileID: 4859787644718917755, guid: edda411917f89364a894fbc83a37c5ad, type: 3}
+  - {fileID: 4269089893197826272, guid: 19cd94516635e0a4fa03808d70bcbd78, type: 3}
+  - {fileID: 1371691123001087076, guid: a226fe901b8ecb047949b1787412a085, type: 3}
   - {fileID: 6094007340596999268, guid: 63fc3feffa2885441bd91a62412edab4, type: 3}
   - {fileID: 1696326153453929988, guid: 9d8697ef230ff0c48b104ae345244a56, type: 3}
-  - {fileID: 6094007340596999268, guid: 63fc3feffa2885441bd91a62412edab4, type: 3}
-  - {fileID: 6094007340596999268, guid: 63fc3feffa2885441bd91a62412edab4, type: 3}
-  - {fileID: 1696326153453929988, guid: 9d8697ef230ff0c48b104ae345244a56, type: 3}
+  - {fileID: 193856057666646130, guid: 2409cddb6e4792a499faa803ca461aa9, type: 3}
+  - {fileID: 6531498275743128642, guid: c65496d36933a564d97b638b934df536, type: 3}
+  - {fileID: 3308676576165647671, guid: 7ba4f58cbb344004fb853814a827a3e3, type: 3}
+  - {fileID: 886325823198581931, guid: d1eb0f0767d6b5b42a9ed96e6efae47e, type: 3}
+  - {fileID: 1371691123001087076, guid: a226fe901b8ecb047949b1787412a085, type: 3}
   realDeck: []
   hand: []
   discardPile: []
@@ -1649,6 +1629,7 @@ MonoBehaviour:
   hpText: {fileID: 1920399585}
   apText: {fileID: 1635820313}
   slowEffectSprite: {fileID: 21300000, guid: 2af42f3cb82bc254b9993c826342ff05, type: 3}
+  hideEffectSprite: {fileID: 21300000, guid: 1910575f5cf3a264a8fa0b990d5ab4f1, type: 3}
 --- !u!114 &1417378001
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1686,6 +1667,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1417377998}
   m_CullTransparentMesh: 0
+--- !u!114 &1417378003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1417377998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c04a042043f19d342b73ff833b5bd11e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1429753786
 GameObject:
   m_ObjectHideFlags: 0

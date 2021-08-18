@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 6094007340596999264}
   - component: {fileID: 6094007340596999270}
   - component: {fileID: 6094007340596999269}
-  - component: {fileID: 6094007340596999268}
+  - component: {fileID: 4269089893197826272}
   m_Layer: 5
-  m_Name: Basic Shot
+  m_Name: Basic Heal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -78,7 +78,7 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 1
---- !u!114 &6094007340596999268
+--- !u!114 &4269089893197826272
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -87,19 +87,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 6094007340596999258}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5138225ff7e7c1b4fbef324b97b8b9a9, type: 3}
+  m_Script: {fileID: 11500000, guid: 206d192a6aded674bba99aac545aa242, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardName: Basic Shot
+  cardName: Basic Heal
   costAP: 1
-  desc: Deal 5 damage to the targeted enemy.
+  desc: Heal a target for 6 points.
   disabledCardOpacity: 0.5
   cardNameText: {fileID: 6094007341796383777}
   cardAPText: {fileID: 6094007342554272785}
   cardDescriptionText: {fileID: 6094007342399141476}
   cardImage: {fileID: 6094007340677114772}
   artImage: {fileID: 6094007342005901627}
-  dmg: 5
+  healAmount: 6
 --- !u!1 &6094007340677114762
 GameObject:
   m_ObjectHideFlags: 0
@@ -316,7 +316,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c7fcb12b072b4d948a226ee5317c3c6e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 22aa45da7f2a60b46b6e95e16ecdeadd, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

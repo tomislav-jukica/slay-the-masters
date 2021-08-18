@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -11,6 +12,9 @@ public class Player : MonoBehaviour
     public BattleLog battleLog;
      
     public int maxHP;
+
+
+
     [SerializeField]
     private int currentHP;
     [SerializeField]
@@ -35,7 +39,7 @@ public class Player : MonoBehaviour
     public Image hpSlider, apSlider;
     public Text hpText, apText;
 
-    public Sprite slowEffectSprite;
+    public Sprite slowEffectSprite, hideEffectSprite;
 
     public static Player Instance() { return _instance; }
 
@@ -100,7 +104,7 @@ public class Player : MonoBehaviour
     public static List<Card> ShuffleCards(List<Card> list) {
         for (int i = 0; i < list.Count; i++) {
             Card temp = list[i];
-            int randomIndex = Random.Range(i, list.Count);
+            int randomIndex = UnityEngine.Random.Range(i, list.Count);
             list[i] = list[randomIndex];
             list[randomIndex] = temp;
         }
@@ -114,16 +118,26 @@ public class Player : MonoBehaviour
         }
         //Debug.Log("Player took " + amount + " damage.");
     }
-
+    public void Heal(int healAmount) {
+        this.currentHP += healAmount;
+        if(currentHP > maxHP) {
+            currentHP = maxHP;
+        }
+    }
 
     public void TakeSlow(int slowAmount) {
         bool exists = false;
         SlowEffect slow = null;
 
-        foreach (SlowEffect item in playerEffects) {
-            slow = item;
-            exists = true;
+        try {
+            foreach (SlowEffect item in playerEffects) {
+                slow = item;
+                exists = true;
+            }
+        } catch (InvalidCastException e) {
+            Debug.LogError(e.Message);
         }
+        
         if(exists) {
             slow.slowAmount += slowAmount;
         } else {
@@ -138,6 +152,33 @@ public class Player : MonoBehaviour
             playerEffects.Add(slow);
         }
     }
+    public void Hide(int turns) {
+        bool exists = false;
+        HideEffect hide = null;
+        try {
+            foreach (HideEffect item in playerEffects) {
+                hide = item;
+                exists = true;
+            }
+        } catch (System.InvalidCastException e) {
+            Debug.LogError(e.Message);
+        }
+        
+        if (exists) {
+            hide.turn += turns;
+        }
+        else {
+            GameObject nGO = new GameObject("HideEffect");
+            Image image = nGO.AddComponent<Image>();
+            image.sprite = hideEffectSprite;
+
+            hide = nGO.AddComponent<HideEffect>();
+            hide.turn = turns;
+
+            nGO.transform.SetParent(playerEffectsGO.transform);
+            playerEffects.Add(hide);
+        }
+    }
 
     private void Die() {
         BattleManager.Instance().BattleLost();
@@ -149,13 +190,23 @@ public class Player : MonoBehaviour
     public void NewTurn() {
         int tempRegenerationAP = regenerationAP;
         SlowEffect slow = (SlowEffect)GetPlayerEffect(PlayerEffect.EffectType.SLOW);
+        HideEffect hide = (HideEffect)GetPlayerEffect(PlayerEffect.EffectType.HIDE);
+
         if (slow != null) {
             tempRegenerationAP -= slow.slowAmount;
             if (tempRegenerationAP < 0) tempRegenerationAP = 0;
-            slow.slowAmount--;
-            slow.number.text = slow.slowAmount.ToString();
-            if(slow.slowAmount == 0) {
+            slow.slowAmount--;            
+            if(slow.number != null) slow.number.text = slow.slowAmount.ToString();
+
+            if (slow.slowAmount == 0) {
                 Destroy(slow.gameObject);
+            }
+        }
+        if(hide != null) {
+            hide.turn--;
+            if(hide.turn == 0) {
+                playerEffects.Remove(hide);
+                Destroy(hide.gameObject);
             }
         }
         currentAP += tempRegenerationAP;
@@ -165,19 +216,12 @@ public class Player : MonoBehaviour
         }
         
     }
-    private PlayerEffect GetPlayerEffect(PlayerEffect.EffectType effectType) {
+    public PlayerEffect GetPlayerEffect(PlayerEffect.EffectType effectType) {
         foreach (PlayerEffect item in playerEffects) {
             if(item.type == effectType) {
                 return item;
             } 
         }
         return null;
-    }
-
-    private void CheckForPlayerEffects() {
-        for(int i = 0; i < playerEffects.Count; i++) {
-            PlayerEffect e = playerEffects[i];
-            e.Activate();
-        }
     }
 }

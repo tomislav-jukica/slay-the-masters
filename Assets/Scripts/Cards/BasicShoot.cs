@@ -7,11 +7,12 @@ public class BasicShoot : Card {
     public int dmg;
     
     public override void Action() { 
-        if(CheckIfParentIsEnemy()) {
+        if(CheckIfParentIsEnemy()) {            
             Enemy enemy = this.GetComponentInParent<Enemy>();
+            this.RemoveFromHand();
             enemy.TakeDamage(dmg);
             Player.Instance().UseAP(costAP);
-            this.RemoveFromHand();
+            
         } 
         
     }

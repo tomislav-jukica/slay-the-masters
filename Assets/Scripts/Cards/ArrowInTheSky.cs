@@ -6,7 +6,7 @@ public class ArrowInTheSky : Card {
     [SerializeField]
     SkyArrow skyArrow;
     public override void Action() { 
-        if(CheckIfParentIsEnemy()) {
+        if(CheckIfParentIsEnemy() || CheckIfParentIsPlayer()) {
             SkyArrow instance = Instantiate(skyArrow, Player.Instance().deckGO.transform);
             Player.Instance().realDeck.Add(instance);
             Draggable d = instance.GetComponent<Draggable>();

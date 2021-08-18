@@ -79,5 +79,11 @@ public abstract class Card : MonoBehaviour
         }
         return false;
     }
+    public bool CheckIfParentIsPlayer() {
+        if(this.transform.parent == Player.Instance().transform) {
+            return true;
+        }
+        return false;
+    }
 
 }

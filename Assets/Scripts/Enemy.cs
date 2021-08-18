@@ -14,12 +14,17 @@ public abstract class Enemy : MonoBehaviour
     public int maxDmg;
 
     public ActionType action;
+    public int poison = 0;
 
     public Text hpText;
     public Image hpSlider;
     public Image actionImage;
-    public Sprite attackIcon;
-    public Sprite passIcon;
+    public Sprite attackIcon, slowIcon, passIcon;
+    public Sprite poisonEffectSprite;
+    public GameObject effectHolder;
+    private GameObject poisonEffect, poisonNumber;
+
+     
 
 
     private void Start() {
@@ -29,12 +34,35 @@ public abstract class Enemy : MonoBehaviour
     private void Update() {
         hpText.text = currentHP + "/" + maxHP;
         hpSlider.fillAmount = (float)currentHP / maxHP;
+        if(poison == 0) {
+            Destroy(poisonEffect);
+        }
         SetActionIcon();
     }
 
     public void Stuned() {
         action = ActionType.PASS;
         SetActionIcon();
+    }
+    public void Poisoned(int amount) {
+        poison += amount;
+        if (poisonEffect == null) {
+            poisonEffect = new GameObject("PoisonEffect");
+            Image image = poisonEffect.AddComponent<Image>();
+            image.sprite = poisonEffectSprite;
+
+
+            poisonNumber = new GameObject("Number");
+            Text number = poisonNumber.AddComponent<Text>();
+            number.alignment = TextAnchor.LowerCenter;
+            number.font = Player.Instance().battleLog.font;
+            number.text = poison.ToString();
+
+            poisonNumber.transform.SetParent(poisonEffect.transform);
+            poisonEffect.transform.SetParent(effectHolder.transform);
+        } else {
+            poisonNumber.GetComponent<Text>().text = poison.ToString();
+        }
     }
 
     public int Attack() {
@@ -52,6 +80,12 @@ public abstract class Enemy : MonoBehaviour
             return true;
         }
         return false;
+    }
+    public void Heal(int healAmount) {
+        this.currentHP += healAmount;
+        if (currentHP > maxHP) {
+            currentHP = maxHP;
+        }
     }
 
     public void Die() {
@@ -73,6 +107,9 @@ public abstract class Enemy : MonoBehaviour
                 break;
             case ActionType.PASS:
                 actionImage.sprite = passIcon;
+                break;
+            case ActionType.SLOW:
+                actionImage.sprite = slowIcon;
                 break;
             default:
                 actionImage.sprite = null;

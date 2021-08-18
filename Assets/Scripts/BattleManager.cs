@@ -45,8 +45,11 @@ public class BattleManager : MonoBehaviour
     private void EndTurn() {
         turnNumber += 1;
         turnNumberText.text = turnNumber.ToString();
+
+        ApplayPoison();
         ExecuteEnemyActions();
         ShowEnemyActions();
+
         StartCoroutine(player.Draw());
         player.NewTurn();
     }
@@ -68,6 +71,15 @@ public class BattleManager : MonoBehaviour
     public void ExecuteEnemyActions() {
         foreach (Enemy e in liveEnemies) {
             e.ExecuteAction();
+        }
+    }
+
+    private void ApplayPoison() {
+        for (int i = 0; i < liveEnemies.Count; i++) {
+            Enemy e = liveEnemies[i];
+            if(e.TakeDamage(e.poison)) {
+                i--;
+            }                        
         }
     }
 

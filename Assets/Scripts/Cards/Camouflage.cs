@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ArrowBag : Card {
+public class Camouflage : Card {
     [SerializeField]
-    int apRestore = 2;
+    int turns;
+
     public override void Action() { 
         if(CheckIfParentIsPlayer()) {
-            Player.Instance().currentAP += apRestore;
+            Player.Instance().Hide(turns);            
             Player.Instance().UseAP(costAP);
             this.RemoveFromHand();
             this.Banish();

@@ -9,7 +9,9 @@ public class RainOfArrows : Card
         if(CheckIfParentIsEnemy()) {
             for (int i = 0; i < BattleManager.Instance().liveEnemies.Count; i ++) {
                 Enemy e = BattleManager.Instance().liveEnemies[i];
-                e.TakeDamage(dmg);
+                if (e.TakeDamage(dmg)) {
+                    i--;
+                }
             }
             Player.Instance().UseAP(costAP);
             this.RemoveFromHand();

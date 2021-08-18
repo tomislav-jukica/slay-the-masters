@@ -31,7 +31,10 @@ public abstract class Card : MonoBehaviour
 
     }
     public abstract void Action();
-
+    public void Banish() {
+        Player.Instance().discardPile.Remove(this);
+        Destroy(this.gameObject);
+    }
     public void RemoveFromHand() {
         Card discardedCard = this;
 
@@ -65,6 +68,8 @@ public abstract class Card : MonoBehaviour
 
         this.GetComponent<Draggable>().enabled = true;
     }
+
+    
 
     public bool CheckIfParentIsEnemy() {
         foreach (Enemy e in BattleManager.Instance().liveEnemies) {

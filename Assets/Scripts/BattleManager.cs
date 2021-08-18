@@ -46,6 +46,7 @@ public class BattleManager : MonoBehaviour
         turnNumber += 1;
         turnNumberText.text = turnNumber.ToString();
         ExecuteEnemyActions();
+        ShowEnemyActions();
         StartCoroutine(player.Draw());
         player.NewTurn();
     }

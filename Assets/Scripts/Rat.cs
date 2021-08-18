@@ -4,8 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class Rat : Enemy {
-    
-
+   
     public override void ShowAction() {
         action = ActionType.ATTACK;
     }
@@ -14,6 +13,4 @@ public class Rat : Enemy {
             Player.Instance().TakeDamage(Attack());
         }
     }
-
-
 }

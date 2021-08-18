@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,9 +15,8 @@ public class Player : MonoBehaviour
     private int currentHP;
     [SerializeField]
     private int maxAP;
-    public int currentAP; 
-    [SerializeField]
-    private int regenerationAP;
+    public int currentAP;
+    public int regenerationAP;
     [SerializeField]
     private int drawSize;
     public int maxHandSize;
@@ -24,13 +24,18 @@ public class Player : MonoBehaviour
     public List<Card> deck, realDeck;
     public List<Card> hand;
     public List<Card> discardPile;
+    public List<PlayerEffect> playerEffects;
 
     public GameObject handGO, deckGO, discardPileGO;
+    public GameObject playerEffectsGO;
+
     [Range(0f, 1f)][SerializeField]
     private float cardDrawSpeed = 0.2f;
 
     public Image hpSlider, apSlider;
     public Text hpText, apText;
+
+    public Sprite slowEffectSprite;
 
     public static Player Instance() { return _instance; }
 
@@ -44,9 +49,6 @@ public class Player : MonoBehaviour
         InstantiateCards();
         currentHP = maxHP;
         currentAP = maxAP;
-    }
-    private void Start() {
-        
     }
 
     private void Update() {
@@ -85,8 +87,9 @@ public class Player : MonoBehaviour
                 c.EnableCard();
                 realDeck.Add(c);
                 discardPile.Remove(c);
-            }            
-            //realDeck = ShuffleCards(deck);
+            }
+            //TODO need to shuffle
+            //realDeck = ShuffleCards(deck); 
         }
         Card nextCard = realDeck[0];
         hand.Add(nextCard);        
@@ -94,7 +97,6 @@ public class Player : MonoBehaviour
         nextCard.transform.SetParent(handGO.transform);
 
     }
-
     public static List<Card> ShuffleCards(List<Card> list) {
         for (int i = 0; i < list.Count; i++) {
             Card temp = list[i];
@@ -110,7 +112,31 @@ public class Player : MonoBehaviour
         if(currentHP <= 0) {
             Die();
         }
-        Debug.Log("Player took " + amount + " damage.");
+        //Debug.Log("Player took " + amount + " damage.");
+    }
+
+
+    public void TakeSlow(int slowAmount) {
+        bool exists = false;
+        SlowEffect slow = null;
+
+        foreach (SlowEffect item in playerEffects) {
+            slow = item;
+            exists = true;
+        }
+        if(exists) {
+            slow.slowAmount += slowAmount;
+        } else {
+            GameObject nGO = new GameObject("SlowEffect");
+            Image image = nGO.AddComponent<Image>();
+            image.sprite = slowEffectSprite;
+
+            slow = nGO.AddComponent<SlowEffect>();
+            slow.slowAmount = slowAmount;
+
+            nGO.transform.SetParent(playerEffectsGO.transform);
+            playerEffects.Add(slow);
+        }
     }
 
     private void Die() {
@@ -121,9 +147,37 @@ public class Player : MonoBehaviour
         currentAP -= amount;
     }
     public void NewTurn() {
-        currentAP += regenerationAP;
+        int tempRegenerationAP = regenerationAP;
+        SlowEffect slow = (SlowEffect)GetPlayerEffect(PlayerEffect.EffectType.SLOW);
+        if (slow != null) {
+            tempRegenerationAP -= slow.slowAmount;
+            if (tempRegenerationAP < 0) tempRegenerationAP = 0;
+            slow.slowAmount--;
+            slow.number.text = slow.slowAmount.ToString();
+            if(slow.slowAmount == 0) {
+                Destroy(slow.gameObject);
+            }
+        }
+        currentAP += tempRegenerationAP;
+
         if(currentAP > maxAP) {
             currentAP = maxAP;
+        }
+        
+    }
+    private PlayerEffect GetPlayerEffect(PlayerEffect.EffectType effectType) {
+        foreach (PlayerEffect item in playerEffects) {
+            if(item.type == effectType) {
+                return item;
+            } 
+        }
+        return null;
+    }
+
+    private void CheckForPlayerEffects() {
+        for(int i = 0; i < playerEffects.Count; i++) {
+            PlayerEffect e = playerEffects[i];
+            e.Activate();
         }
     }
 }

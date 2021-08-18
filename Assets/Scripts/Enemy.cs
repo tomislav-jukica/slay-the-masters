@@ -30,17 +30,28 @@ public abstract class Enemy : MonoBehaviour
         hpText.text = currentHP + "/" + maxHP;
         hpSlider.fillAmount = (float)currentHP / maxHP;
         SetActionIcon();
+    }
 
-
+    public void Stuned() {
+        action = ActionType.PASS;
+        SetActionIcon();
     }
 
     public int Attack() {
         return Random.Range(minDmg, maxDmg);
     }
-
-    public void TakeDamage(int amount) {
+    /// <summary>
+    /// Reduces enemy health by amount inputed.
+    /// </summary>
+    /// <param name="amount"></param>
+    /// <returns>Returns true if the enemy is killed.</returns>
+    public bool TakeDamage(int amount) {
         currentHP -= amount;
-        if (currentHP <= 0) Die();
+        if (currentHP <= 0) {
+            Die();
+            return true;
+        }
+        return false;
     }
 
     public void Die() {
@@ -71,6 +82,7 @@ public abstract class Enemy : MonoBehaviour
 
     public enum ActionType {
         ATTACK,
+        SLOW,
         PASS
     }
 }

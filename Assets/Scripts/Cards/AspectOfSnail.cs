@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Camouflage : Card {
-    [SerializeField]
-    int turns;
-
-    public override void Action() { 
+public class AspectOfSnail : Card {
+    public int slow;
+    public int armor;
+    public override void Action() {
         if(CheckIfParentIsPlayer()) {
-            Player.Instance().Hide(turns);            
-            Player.Instance().UseAP(costAP);
+            Player player = Player.Instance();
+            player.TakeSlow(slow);
+            player.AddArmor(armor);
+            player.UseAP(costAP);
             this.RemoveFromHand();
-            this.Banish();
         }
         else {
             this.transform.SetParent(Player.Instance().handGO.transform);

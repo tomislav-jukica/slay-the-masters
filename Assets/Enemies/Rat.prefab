@@ -235,10 +235,10 @@ MonoBehaviour:
   hpText: {fileID: 104117647239274036}
   hpSlider: {fileID: 104117646730565898}
   actionImage: {fileID: 835592548503392489}
-  attackIcon: {fileID: 21300000, guid: 51dea199d50f9f74dac2c57e8a1da6e7, type: 3}
+  attackIcon: {fileID: 21300000, guid: 8c7748821ff49194689784f8b89415b5, type: 3}
   slowIcon: {fileID: 0}
-  passIcon: {fileID: 21300000, guid: f60abc2e81d5164458d67658ebe70338, type: 3}
-  poisonEffectSprite: {fileID: 21300000, guid: 5398ca6d37f9bc14a89872878617f55f, type: 3}
+  passIcon: {fileID: 21300000, guid: 66f27feb7e0fbf745ae35bcb78840712, type: 3}
+  poisonEffectSprite: {fileID: 21300000, guid: 147ec527acd51ca4fb932a2539c54127, type: 3}
   effectHolder: {fileID: 1352969623223109637}
 --- !u!1 &104117647239274035
 GameObject:

@@ -11,7 +11,9 @@ public class ArrowBag : Card {
             Player.Instance().UseAP(costAP);
             this.RemoveFromHand();
             this.Banish();
-        } 
-        
+        }
+        else {
+            this.transform.SetParent(Player.Instance().handGO.transform);
+        }
     }
 }

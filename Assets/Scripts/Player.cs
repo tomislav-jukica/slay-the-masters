@@ -12,9 +12,6 @@ public class Player : MonoBehaviour
     public BattleLog battleLog;
      
     public int maxHP;
-
-
-
     [SerializeField]
     private int currentHP;
     [SerializeField]
@@ -25,21 +22,27 @@ public class Player : MonoBehaviour
     private int drawSize;
     public int maxHandSize;
 
+
+
     public List<Card> deck, realDeck;
     public List<Card> hand;
     public List<Card> discardPile;
-    public List<PlayerEffect> playerEffects;
 
     public GameObject handGO, deckGO, discardPileGO;
-    public GameObject playerEffectsGO;
+    public GameObject playerEffectsGO, slowEffectGO, hideEffectGO, armorGO;
 
-    [Range(0f, 1f)][SerializeField]
-    private float cardDrawSpeed = 0.2f;
+    [Range(0f, 1f)]
+    public float cardDrawSpeed = 0.2f;
+
+    [SerializeField]
+    private int slowEffect = 0;
+    private int hideEffect = 0;
+    public int armor = 0;
 
     public Image hpSlider, apSlider;
     public Text hpText, apText;
 
-    public Sprite slowEffectSprite, hideEffectSprite;
+    public Sprite slowEffectSprite, hideEffectSprite, armorSprite;
 
     public static Player Instance() { return _instance; }
 
@@ -70,8 +73,10 @@ public class Player : MonoBehaviour
             realDeck.Add(c);
         }
     }
-    public IEnumerator Draw() {
-        for (int i = 0; i < drawSize; i++) {
+    public IEnumerator Draw(int draw = -1) {
+        if (draw < 0) draw = drawSize;
+
+        for (int i = 0; i < draw; i++) {
             if(hand.Count < maxHandSize) {
                 DrawACard();
                 yield return new WaitForSeconds(cardDrawSpeed);
@@ -80,10 +85,9 @@ public class Player : MonoBehaviour
                 break;
             }
             
-        }
-        
+        }        
     }
-    private void DrawACard() {
+    public void DrawACard() {
         if (realDeck.Count == 0) {
             while (discardPile.Count != 0) {
                 Card c = discardPile[0];
@@ -112,11 +116,16 @@ public class Player : MonoBehaviour
     }
 
     public void TakeDamage(int amount) {
-        currentHP -= amount;
+        armor -= amount;
+        armorGO.GetComponentInChildren<Text>().text = armor.ToString();
+        if(armor < 0) {
+            currentHP += armor;
+            armor = 0;
+            Destroy(armorGO.gameObject);
+        }
         if(currentHP <= 0) {
             Die();
         }
-        //Debug.Log("Player took " + amount + " damage.");
     }
     public void Heal(int healAmount) {
         this.currentHP += healAmount;
@@ -126,60 +135,74 @@ public class Player : MonoBehaviour
     }
 
     public void TakeSlow(int slowAmount) {
-        bool exists = false;
-        SlowEffect slow = null;
-
-        try {
-            foreach (SlowEffect item in playerEffects) {
-                slow = item;
-                exists = true;
-            }
-        } catch (InvalidCastException e) {
-            Debug.LogError(e.Message);
-        }
-        
-        if(exists) {
-            slow.slowAmount += slowAmount;
+        if(slowEffect > 0) {
+            slowEffect += slowAmount;
+            slowEffectGO.GetComponentInChildren<Text>().text = slowEffect.ToString();
         } else {
-            GameObject nGO = new GameObject("SlowEffect");
-            Image image = nGO.AddComponent<Image>();
+            slowEffect += slowAmount;
+            slowEffectGO = new GameObject("SlowEffect");            
+            Image image = slowEffectGO.AddComponent<Image>();
+            slowEffectGO.GetComponent<RectTransform>().sizeDelta = new Vector2(50, 50);
             image.sprite = slowEffectSprite;
 
-            slow = nGO.AddComponent<SlowEffect>();
-            slow.slowAmount = slowAmount;
+            GameObject effectNumber = new GameObject("EffectNumber");
+            Text number = effectNumber.gameObject.AddComponent<Text>();
+            number.font = battleLog.font;
+            number.alignment = TextAnchor.LowerCenter;
+            number.rectTransform.sizeDelta = new Vector2(100, 90);
+            number.text = slowEffect.ToString();
+            effectNumber.transform.SetParent(slowEffectGO.transform);
 
-            nGO.transform.SetParent(playerEffectsGO.transform);
-            playerEffects.Add(slow);
+            slowEffectGO.transform.SetParent(playerEffectsGO.transform);
         }
     }
-    public void Hide(int turns) {
-        bool exists = false;
-        HideEffect hide = null;
-        try {
-            foreach (HideEffect item in playerEffects) {
-                hide = item;
-                exists = true;
-            }
-        } catch (System.InvalidCastException e) {
-            Debug.LogError(e.Message);
-        }
-        
-        if (exists) {
-            hide.turn += turns;
+    public void Hide(int turns) {     
+        if (hideEffect > 0) {
+            hideEffect += turns;
+            hideEffectGO.GetComponentInChildren<Text>().text = hideEffect.ToString();
         }
         else {
-            GameObject nGO = new GameObject("HideEffect");
-            Image image = nGO.AddComponent<Image>();
+            hideEffect += turns;
+            hideEffectGO = new GameObject("HideEffect");
+            Image image = hideEffectGO.AddComponent<Image>();
+            hideEffectGO.GetComponent<RectTransform>().sizeDelta = new Vector2(50, 50);
             image.sprite = hideEffectSprite;
 
-            hide = nGO.AddComponent<HideEffect>();
-            hide.turn = turns;
+            GameObject effectNumber = new GameObject("EffectNumber");
+            Text number = effectNumber.gameObject.AddComponent<Text>();
+            number.font = battleLog.font;
+            number.alignment = TextAnchor.LowerCenter;
+            number.rectTransform.sizeDelta = new Vector2(100, 90);
+            effectNumber.transform.SetParent(hideEffectGO.transform);
+            number.text = hideEffect.ToString();
 
-            nGO.transform.SetParent(playerEffectsGO.transform);
-            playerEffects.Add(hide);
+            hideEffectGO.transform.SetParent(playerEffectsGO.transform);
         }
     }
+    public void AddArmor(int amount) {
 
+        if (armor > 0) {
+            armor += amount;
+            armorGO.GetComponentInChildren<Text>().text = armor.ToString();
+        }
+        else {
+            armor += amount;
+            armorGO = new GameObject("ArmorEffect");
+            Image image = armorGO.AddComponent<Image>();
+            armorGO.GetComponent<RectTransform>().sizeDelta = new Vector2(50, 50);
+            image.sprite = armorSprite;
+
+            GameObject effectNumber = new GameObject("EffectNumber");
+            Text number = effectNumber.gameObject.AddComponent<Text>();
+            number.font = battleLog.font;
+            number.alignment = TextAnchor.LowerCenter;
+            number.rectTransform.sizeDelta = new Vector2(100, 90);
+            effectNumber.transform.SetParent(armorGO.transform);
+            number.text = armor.ToString();
+
+            armorGO.transform.SetParent(playerEffectsGO.transform);
+        }
+    }
     private void Die() {
         BattleManager.Instance().BattleLost();
     }
@@ -189,24 +212,21 @@ public class Player : MonoBehaviour
     }
     public void NewTurn() {
         int tempRegenerationAP = regenerationAP;
-        SlowEffect slow = (SlowEffect)GetPlayerEffect(PlayerEffect.EffectType.SLOW);
-        HideEffect hide = (HideEffect)GetPlayerEffect(PlayerEffect.EffectType.HIDE);
 
-        if (slow != null) {
-            tempRegenerationAP -= slow.slowAmount;
+        if (slowEffect > 0) {
+            tempRegenerationAP -= slowEffect;
             if (tempRegenerationAP < 0) tempRegenerationAP = 0;
-            slow.slowAmount--;            
-            if(slow.number != null) slow.number.text = slow.slowAmount.ToString();
+            slowEffect--;
+            slowEffectGO.GetComponentInChildren<Text>().text = slowEffect.ToString();
 
-            if (slow.slowAmount == 0) {
-                Destroy(slow.gameObject);
+            if (slowEffect == 0) {
+                Destroy(slowEffectGO.gameObject);
             }
         }
-        if(hide != null) {
-            hide.turn--;
-            if(hide.turn == 0) {
-                playerEffects.Remove(hide);
-                Destroy(hide.gameObject);
+        if(hideEffect > 0) {
+            hideEffect--;
+            if(hideEffect == 0) {
+                Destroy(hideEffectGO.gameObject);
             }
         }
         currentAP += tempRegenerationAP;
@@ -216,12 +236,21 @@ public class Player : MonoBehaviour
         }
         
     }
-    public PlayerEffect GetPlayerEffect(PlayerEffect.EffectType effectType) {
-        foreach (PlayerEffect item in playerEffects) {
-            if(item.type == effectType) {
-                return item;
-            } 
+
+    public int GetPlayerEffect(EffectType type) {
+        switch(type) {
+            case EffectType.HIDE:
+                return hideEffect;
+            case EffectType.SLOW:
+                return hideEffect;
+            default:
+                Debug.LogError("Player doesn't have that type of effect.");
+                return -1;
         }
-        return null;
+    }
+
+    public enum EffectType {
+        SLOW,
+        HIDE
     }
 }

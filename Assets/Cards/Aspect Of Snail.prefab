@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 6094007340596999264}
   - component: {fileID: 6094007340596999270}
   - component: {fileID: 6094007340596999269}
-  - component: {fileID: 1371691123001087076}
+  - component: {fileID: 2194094903573468716}
   m_Layer: 5
-  m_Name: Camouflage
+  m_Name: Aspect Of Snail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -78,7 +78,7 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 1
---- !u!114 &1371691123001087076
+--- !u!114 &2194094903573468716
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -87,19 +87,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 6094007340596999258}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c416ae4509b8d09499390a1d2f4a9fdf, type: 3}
+  m_Script: {fileID: 11500000, guid: 09aa055717494244b8d8c6a1bbbdc45b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardName: Camouflage
+  cardName: Aspect of Snail
   costAP: 1
-  desc: <b>Hide 1</b>
+  desc: '<b>Armor 20</b>
+
+    Add <b> Slow 2 </b> to the player.'
   disabledCardOpacity: 0.5
   cardNameText: {fileID: 6094007341796383777}
   cardAPText: {fileID: 6094007342554272785}
   cardDescriptionText: {fileID: 6094007342399141476}
   cardImage: {fileID: 6094007340677114772}
   artImage: {fileID: 6094007342005901627}
-  turns: 1
+  slow: 2
+  armor: 20
 --- !u!1 &6094007340677114762
 GameObject:
   m_ObjectHideFlags: 0
@@ -316,7 +319,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 5f67173f06aca3246aa70b04bd6e227b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a1f19cb1c04fb584387d852ec5c1e603, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

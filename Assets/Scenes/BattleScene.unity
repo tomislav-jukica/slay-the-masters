@@ -1605,8 +1605,8 @@ MonoBehaviour:
   drawSize: 3
   maxHandSize: 6
   deck:
-  - {fileID: 4859787644718917755, guid: edda411917f89364a894fbc83a37c5ad, type: 3}
-  - {fileID: 4269089893197826272, guid: 19cd94516635e0a4fa03808d70bcbd78, type: 3}
+  - {fileID: 2194094903573468716, guid: df64f34fde2a8134dae2561f6d00a1d2, type: 3}
+  - {fileID: 2196641093290522068, guid: 4cae0001e348551489e868790983e2d3, type: 3}
   - {fileID: 1371691123001087076, guid: a226fe901b8ecb047949b1787412a085, type: 3}
   - {fileID: 6094007340596999268, guid: 63fc3feffa2885441bd91a62412edab4, type: 3}
   - {fileID: 1696326153453929988, guid: 9d8697ef230ff0c48b104ae345244a56, type: 3}
@@ -1618,18 +1618,23 @@ MonoBehaviour:
   realDeck: []
   hand: []
   discardPile: []
-  playerEffects: []
   handGO: {fileID: 1590391524}
   deckGO: {fileID: 1429753786}
   discardPileGO: {fileID: 1404112259}
   playerEffectsGO: {fileID: 12196979}
+  slowEffectGO: {fileID: 0}
+  hideEffectGO: {fileID: 0}
+  armorGO: {fileID: 0}
   cardDrawSpeed: 0.2
+  slowEffect: 0
+  armor: 0
   hpSlider: {fileID: 84918778}
   apSlider: {fileID: 62092303}
   hpText: {fileID: 1920399585}
   apText: {fileID: 1635820313}
-  slowEffectSprite: {fileID: 21300000, guid: 2af42f3cb82bc254b9993c826342ff05, type: 3}
-  hideEffectSprite: {fileID: 21300000, guid: 1910575f5cf3a264a8fa0b990d5ab4f1, type: 3}
+  slowEffectSprite: {fileID: 21300000, guid: 7a0fed409b60c8045a172c279113814e, type: 3}
+  hideEffectSprite: {fileID: 21300000, guid: b1a6ff49fd9c7b848aefd2a3a69922a8, type: 3}
+  armorSprite: {fileID: 21300000, guid: 1f747d6bb3cc7cf4b88526277153e056, type: 3}
 --- !u!114 &1417378001
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -13,7 +13,9 @@ public class ArrowInTheSky : Card {
             d.card = instance;
             Player.Instance().UseAP(costAP);
             this.RemoveFromHand();
-        } 
-        
+        }
+        else {
+            this.transform.SetParent(Player.Instance().handGO.transform);
+        }
     }
 }

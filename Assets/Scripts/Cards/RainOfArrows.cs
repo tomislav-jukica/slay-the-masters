@@ -6,8 +6,7 @@ public class RainOfArrows : Card
 {
     public int dmg;
     public override void Action() {
-        if(CheckIfParentIsEnemy()) {
-            
+        if(CheckIfParentIsEnemy()) {            
             for (int i = 0; i < BattleManager.Instance().liveEnemies.Count; i ++) {
                 Enemy e = BattleManager.Instance().liveEnemies[i];
                 this.RemoveFromHand();
@@ -15,8 +14,10 @@ public class RainOfArrows : Card
                     i--;
                 }
             }
-            Player.Instance().UseAP(costAP);
-            
+            Player.Instance().UseAP(costAP);            
+        }
+        else {
+            this.transform.SetParent(Player.Instance().handGO.transform);
         }
     }
 }

@@ -10,7 +10,7 @@ public class Rat : Enemy {
     }
     public override void ExecuteAction() {
         float chance = 1f;
-        if (Player.Instance().GetPlayerEffect(PlayerEffect.EffectType.HIDE) != null) {
+        if (Player.Instance().GetPlayerEffect(Player.EffectType.HIDE) > 0) {
             chance = Random.Range(0f, 1f);
         }
         if (chance >= 0.5f) {

@@ -17,6 +17,8 @@ public class BasicHeal : Card {
             Player.Instance().UseAP(costAP);
             this.RemoveFromHand();
         }
-        
+        else {
+            this.transform.SetParent(Player.Instance().handGO.transform);
+        }
     }
 }

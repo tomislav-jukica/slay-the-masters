@@ -15,7 +15,9 @@ public class SkyArrow : Card {
             Player.Instance().UseAP(costAP);
             
             Destroy(this.gameObject);
-        } 
-        
+        }
+        else {
+            this.transform.SetParent(Player.Instance().handGO.transform);
+        }
     }
 }

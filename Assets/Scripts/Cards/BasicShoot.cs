@@ -11,9 +11,10 @@ public class BasicShoot : Card {
             Enemy enemy = this.GetComponentInParent<Enemy>();
             this.RemoveFromHand();
             enemy.TakeDamage(dmg);
-            Player.Instance().UseAP(costAP);
-            
-        } 
-        
+            Player.Instance().UseAP(costAP);            
+        }
+        else {
+            this.transform.SetParent(Player.Instance().handGO.transform);
+        }
     }
 }

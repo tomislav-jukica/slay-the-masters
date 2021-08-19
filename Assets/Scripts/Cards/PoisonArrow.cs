@@ -13,9 +13,10 @@ public class PoisonArrow : Card {
             this.RemoveFromHand();
             enemy.TakeDamage(dmg);
             enemy.Poisoned(poison);
-            Player.Instance().UseAP(costAP);
-            
-        } 
-        
+            Player.Instance().UseAP(costAP);            
+        }
+        else {
+            this.transform.SetParent(Player.Instance().handGO.transform);
+        }
     }
 }

@@ -16,9 +16,10 @@ public class Headshot : Card {
             } else {
                 Player.Instance().battleLog.Write("Missed!", Color.red);
             }           
-            Player.Instance().UseAP(costAP);
-            
-        } 
-        
+            Player.Instance().UseAP(costAP);            
+        }
+        else {
+            this.transform.SetParent(Player.Instance().handGO.transform);
+        }
     }
 }

@@ -11,11 +11,11 @@ public class KnifeThrow : Card {
             Enemy enemy = this.GetComponentInParent<Enemy>();
             this.RemoveFromHand();
             enemy.TakeDamage(dmg);
-            Player.Instance().UseAP(costAP);
-            
-            this.Banish();
-            
-        } 
-        
+            Player.Instance().UseAP(costAP);            
+            this.Banish();            
+        }
+        else {
+            this.transform.SetParent(Player.Instance().handGO.transform);
+        }
     }
 }

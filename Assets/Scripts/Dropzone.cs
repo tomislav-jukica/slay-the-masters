@@ -10,7 +10,6 @@ public class Dropzone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
     }
     
     public void OnDrop(PointerEventData eventData) {
-        Debug.Log(eventData.pointerDrag.name + " was dropped on " + gameObject.name);
         Draggable draggable = eventData.pointerDrag.GetComponent<Draggable>();
         if(draggable != null) {
             draggable.parentToReturnTo = this.transform;

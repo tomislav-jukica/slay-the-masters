@@ -8,11 +8,16 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     private Vector2 clickPosition;
     public Transform parentToReturnTo = null;
     public Card card = null;
+    //public bool reward = false;
 
     private void Start() {
         card = GetComponent<Card>();
     }
     public void OnBeginDrag(PointerEventData eventData) {   
+        //if(reward) {
+        //    reward = false;
+        //    BattleManager.Instance().victoryScreen.GetComponent<RewardManager>().PickACardReward(this.gameObject.GetComponent<Card>());
+        //}
         clickPosition = LocalPoint(eventData);
         parentToReturnTo = this.transform.parent;
         this.transform.SetParent(this.transform.parent.parent);

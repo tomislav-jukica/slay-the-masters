@@ -41,7 +41,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -980, y: -540}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 180, y: 280}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6094007340596999264
@@ -94,14 +94,14 @@ MonoBehaviour:
   costAP: 1
   desc: '<b>Destroy</b>
 
-    Deal 30 damage and stun an enemy.'
+    Deal 20 damage and stun an enemy.'
   disabledCardOpacity: 0.5
   cardNameText: {fileID: 6094007341796383777}
   cardAPText: {fileID: 6094007342554272785}
   cardDescriptionText: {fileID: 6094007342399141476}
   cardImage: {fileID: 6094007340677114772}
   artImage: {fileID: 6094007342005901627}
-  dmg: 30
+  dmg: 20
 --- !u!1 &6094007340677114762
 GameObject:
   m_ObjectHideFlags: 0

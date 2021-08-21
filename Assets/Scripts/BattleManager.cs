@@ -30,11 +30,15 @@ public class BattleManager : MonoBehaviour
             _instance = this;
         }
     }
-
+    private void Update() {
+        if (Input.GetKeyDown(KeyCode.V)) {
+            BattleWon();
+        }
+    }
     void Start()
     {
         player = Player.Instance();
-        StartCoroutine(player.Draw());        
+        StartCoroutine(player.Draw(player.drawSize * 2));        
         SummonEnemies();
         ShowEnemyActions();
 
@@ -69,7 +73,8 @@ public class BattleManager : MonoBehaviour
     }
 
     public void ExecuteEnemyActions() {
-        foreach (Enemy e in liveEnemies) {
+        for(int i = 0; i < liveEnemies.Count; i++) {
+            Enemy e = liveEnemies[i];
             e.ExecuteAction();
         }
     }
@@ -84,7 +89,10 @@ public class BattleManager : MonoBehaviour
     }
 
     public void BattleWon() {
-        victoryScreen.SetActive(true); 
+        victoryScreen.SetActive(true);
+        player.currentAP = player.maxAP; //to not have the cards disabled
+        RewardManager rm = victoryScreen.GetComponent<RewardManager>();
+        rm.CardRewards();
     }
     public void BattleLost() {
         defeatScreen.SetActive(true);

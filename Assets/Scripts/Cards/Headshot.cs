@@ -15,6 +15,7 @@ public class Headshot : Card {
                 enemy.TakeDamage(dmg);
             } else {
                 Player.Instance().battleLog.Write("Missed!", Color.red);
+                this.RemoveFromHand();
             }           
             Player.Instance().UseAP(costAP);            
         }

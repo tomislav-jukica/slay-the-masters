@@ -226,10 +226,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 
-  maxHP: 10
+  maxHP: 20
   currentHP: 10
-  minDmg: 1
-  maxDmg: 7
+  minDmg: 2
+  maxDmg: 5
   action: 1
   poison: 0
   hpText: {fileID: 104117647239274036}

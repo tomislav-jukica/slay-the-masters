@@ -5,11 +5,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+
 public class MainMenu : MonoBehaviour
 {
     public Button btnContinue, btnNewGame, btnOptions, btnExit, btnChooseClass;
+    public GameObject pickAClass, loadingScreen;
     public Image loadingBar;
-    public GameObject loadingScreen, pickAClass;
 
     private void Start() {
         btnContinue.onClick.AddListener(Continue);
@@ -29,6 +30,7 @@ public class MainMenu : MonoBehaviour
 
     private void NewGame() {
         pickAClass.SetActive(true);
+
     }
 
     private void Options() {
@@ -38,17 +40,19 @@ public class MainMenu : MonoBehaviour
     private void Exit() {
         Application.Quit();
     }
-
     public void LoadScene(int sceneIndex) {
         StartCoroutine(LoadSceneAsync(sceneIndex));
     }
     private IEnumerator LoadSceneAsync(int sceneIndex) {
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex);
         loadingScreen.SetActive(true);
-        while(!operation.isDone) {            
+        while (!operation.isDone) {
             float progress = Mathf.Clamp01(operation.progress / 0.9f);
             loadingBar.fillAmount = progress;
             yield return null;
         }
+        loadingScreen.SetActive(false);
     }
+
+
 }

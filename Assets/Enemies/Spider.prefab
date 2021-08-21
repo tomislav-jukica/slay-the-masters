@@ -226,7 +226,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 
-  maxHP: 20
+  maxHP: 40
   currentHP: 20
   minDmg: 4
   maxDmg: 8

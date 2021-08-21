@@ -12,6 +12,36 @@ EditorBuildSettings:
     path: Assets/Scenes/GameScene.unity
     guid: 43eb06132131fa146817de376cf3bfef
   - enabled: 1
-    path: Assets/Scenes/BattleScene.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
+    path: Assets/Scenes/Level 1.unity
+    guid: bdfa7eb5464ea9540960018768a8ea46
+  - enabled: 1
+    path: Assets/Scenes/Level 2.unity
+    guid: 08bf5c479f3283d48b22e26d4ecf5240
+  - enabled: 1
+    path: Assets/Scenes/Level 3.unity
+    guid: c4dadc29c6c275748a8740be84f29d0c
+  - enabled: 1
+    path: Assets/Scenes/Level 4.unity
+    guid: 9084f317888b6ca4daa9da59401da62e
+  - enabled: 1
+    path: Assets/Scenes/Mayor.unity
+    guid: 9a4a7fb8c2a23194393e15576c174650
+  - enabled: 1
+    path: Assets/Scenes/Blacksmith.unity
+    guid: f6ee0526c5ce21d4a9d83dcfd2afdd72
+  - enabled: 1
+    path: Assets/Scenes/Level 5.unity
+    guid: e114588eafcfaf44dbd9aa534e3b57cc
+  - enabled: 1
+    path: Assets/Scenes/Level 6.unity
+    guid: 020425eb6482f0a458a91f5dd0e16d53
+  - enabled: 1
+    path: Assets/Scenes/Level 7.unity
+    guid: 6a1eb229750e4ed4f82bad51de736fb5
+  - enabled: 1
+    path: Assets/Scenes/Level 8.unity
+    guid: 1a54202f0977a5142a186333eb9017f7
+  - enabled: 1
+    path: Assets/Scenes/Level 9.unity
+    guid: eb8e711f112c216478be6624c7477484
   m_configObjects: {}

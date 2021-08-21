@@ -12,9 +12,8 @@ public class SkyArrow : Card {
             this.RemoveFromHand();
             enemy.TakeDamage(dmg);
             enemy.Stuned();
-            Player.Instance().UseAP(costAP);
-            
-            Destroy(this.gameObject);
+            Player.Instance().UseAP(costAP);            
+            Banish();
         }
         else {
             this.transform.SetParent(Player.Instance().handGO.transform);

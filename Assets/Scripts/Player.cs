@@ -10,16 +10,15 @@ public class Player : MonoBehaviour
 {
     private static Player _instance;
     public BattleLog battleLog;
+    public GameManager GM;
      
     public int maxHP;
     [SerializeField]
     private int currentHP;
-    [SerializeField]
-    private int maxAP;
+    public int maxAP;
     public int currentAP;
     public int regenerationAP;
-    [SerializeField]
-    private int drawSize;
+    public int drawSize;
     public int maxHandSize;
 
 
@@ -52,7 +51,8 @@ public class Player : MonoBehaviour
         }
         else {
             _instance = this;
-        }        
+        }
+        GM = GameManager.Instance();
         InstantiateCards();
         currentHP = maxHP;
         currentAP = maxAP;
@@ -68,6 +68,8 @@ public class Player : MonoBehaviour
 
 
     public void InstantiateCards() {
+        deck = new List<Card>(GM.deck);
+        deck = new List<Card>(ShuffleCards(deck));        
         for (int i = 0; i < deck.Count; i++) { 
             Card c = Instantiate(deck[i], deckGO.transform);
             realDeck.Add(c);
@@ -96,8 +98,8 @@ public class Player : MonoBehaviour
                 realDeck.Add(c);
                 discardPile.Remove(c);
             }
-            //TODO need to shuffle
-            //realDeck = ShuffleCards(deck); 
+            
+            realDeck = new List<Card>(ShuffleCards(realDeck)); 
         }
         Card nextCard = realDeck[0];
         hand.Add(nextCard);        
@@ -117,8 +119,10 @@ public class Player : MonoBehaviour
 
     public void TakeDamage(int amount) {
         armor -= amount;
-        armorGO.GetComponentInChildren<Text>().text = armor.ToString();
-        if(armor < 0) {
+        if(armorGO != null) {
+            armorGO.GetComponentInChildren<Text>().text = armor.ToString();
+        }        
+        if(armor <= 0) {
             currentHP += armor;
             armor = 0;
             Destroy(armorGO.gameObject);
@@ -225,6 +229,7 @@ public class Player : MonoBehaviour
         }
         if(hideEffect > 0) {
             hideEffect--;
+            hideEffectGO.GetComponentInChildren<Text>().text = hideEffect.ToString();
             if(hideEffect == 0) {
                 Destroy(hideEffectGO.gameObject);
             }

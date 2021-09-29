@@ -16,12 +16,13 @@ public class GameManager : MonoBehaviour
     private static GameManager _instance;
     public static GameManager Instance() { return _instance; }
 
-    public GameObject loadingScreen, endOfDemoScreen;
+    public GameObject loadingScreen, endOfDemoScreen, optionsScreen;
     public Image loadingBar;
     public Button startButton;
     public int levelToPlay = -1;
 
     public Text questTitle, questDescription, questCounter;
+    public Slider musicSlider, soundSlider;
 
     private void Awake() {
         if (_instance != null && _instance != this) {
@@ -31,6 +32,16 @@ public class GameManager : MonoBehaviour
             _instance = this;
         }
         startButton.onClick.AddListener(Play);
+        AudioManager.Instance().Play("MapTheme");
+
+        Debug.Log("test: " + AudioManager.Instance().GetMusicVolume());
+        musicSlider.value = AudioManager.Instance().GetMusicVolume();
+
+
+
+
+
+
     }
     private void Start() {
         deck = new List<Card>(startingDeck);
@@ -88,6 +99,10 @@ public class GameManager : MonoBehaviour
         }
         loadingScreen.SetActive(false);
         if (killGM) Destroy(this.gameObject);
+    }
+
+    public void ToggleOptions() {
+        Application.Quit();      
     }
 
 }

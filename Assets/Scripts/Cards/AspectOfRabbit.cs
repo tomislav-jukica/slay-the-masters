@@ -5,6 +5,7 @@ using UnityEngine;
 public class AspectOfRabbit : Card {
     public int cards;
     public override void Action() {
+        PlaySound();
         StartCoroutine(Work());
     }
     private IEnumerator Work() {

@@ -10,6 +10,7 @@ public class PoisonArrow : Card {
     public override void Action() { 
         if(CheckIfParentIsEnemy()) {            
             Enemy enemy = this.GetComponentInParent<Enemy>();
+            PlaySound();
             this.RemoveFromHand();
             enemy.TakeDamage(dmg);
             enemy.Poisoned(poison);

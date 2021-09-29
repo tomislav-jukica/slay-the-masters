@@ -52,12 +52,9 @@ public class MapMarker : MonoBehaviour
     }
     private void Clicked() {
         if(GM.GetSelectedMapMarker() != null) {
-            Deselect(GM.GetSelectedMapMarker());
-        } else if(GM.GetSelectedMapMarker() == this) {
-            Deselect(this);
-        } else {
-            Select(this);
-        }        
+            Deselect(GM.GetSelectedMapMarker());            
+        }
+        Select(this);
     }
 
     private void Select(MapMarker marker) {

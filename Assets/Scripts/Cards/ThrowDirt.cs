@@ -8,6 +8,7 @@ public class ThrowDirt : Card {
     public override void Action() { 
         if(CheckIfParentIsEnemy()) {
             Enemy enemy = this.GetComponentInParent<Enemy>();
+            PlaySound();
             enemy.Stuned();
             Player.Instance().UseAP(costAP);
             this.RemoveFromHand();

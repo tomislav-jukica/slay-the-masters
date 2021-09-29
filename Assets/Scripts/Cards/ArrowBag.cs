@@ -8,6 +8,7 @@ public class ArrowBag : Card {
     public override void Action() { 
         if(CheckIfParentIsPlayer()) {
             Player.Instance().currentAP += apRestore;
+            PlaySound();
             Player.Instance().UseAP(costAP);
             this.RemoveFromHand();
             this.Banish();

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Audio;
 
 public abstract class Card : MonoBehaviour
 {
@@ -17,18 +18,33 @@ public abstract class Card : MonoBehaviour
     public Text cardNameText, cardAPText, cardDescriptionText;
     public Image cardImage, artImage;
 
+    protected AudioSource audioSource;
+    public AudioMixerGroup mixerGroup;
+    public AudioClip sfx;
+
     private void Awake() {
         cardNameText.text = cardName;
         cardAPText.text = costAP.ToString();
         cardDescriptionText.text = desc;
+
+        audioSource = this.gameObject.AddComponent<AudioSource>();
+        audioSource.playOnAwake = false;
+        audioSource.outputAudioMixerGroup = mixerGroup;
+        audioSource.clip = sfx;
     }
     private void Update() {
-        if (Player.Instance().currentAP < costAP) {
-            DisableCard();
-        } else {
-            EnableCard();
+        if(!BattleManager.Instance().rewardScreen) {
+            if (Player.Instance().currentAP < costAP) {
+                DisableCard();
+            }
+            else {
+                EnableCard();
+            }
         }
-
+        
+    }
+    protected void PlaySound() {        
+        audioSource.Play();
     }
     public abstract void Action();
     public void Banish() {
@@ -41,8 +57,6 @@ public abstract class Card : MonoBehaviour
         Player.Instance().discardPile.Add(discardedCard);
         Player.Instance().hand.Remove(discardedCard);
         this.transform.SetParent(Player.Instance().discardPileGO.transform);
-
-        //discardedCard.enabled = false;
     }
 
     public void DisableCard() {

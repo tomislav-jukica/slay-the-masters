@@ -18,6 +18,7 @@ public class BattleManager : MonoBehaviour
     public Text turnNumberText;
     public GameObject victoryScreen;
     public GameObject defeatScreen;
+    public bool rewardScreen;
 
     private static BattleManager _instance;
     public static BattleManager Instance() { return _instance; }
@@ -29,7 +30,19 @@ public class BattleManager : MonoBehaviour
         else {
             _instance = this;
         }
+        PlayMusic();        
     }
+
+    private void PlayMusic() {
+        string n = gameObject.scene.name;
+        if (n == "Level 9") {
+            AudioManager.Instance().Play("BossTheme");
+        }
+        else {
+            AudioManager.Instance().Play("WoodTheme");
+        }
+    }
+
     private void Update() {
         if (Input.GetKeyDown(KeyCode.V)) {
             BattleWon();
@@ -89,12 +102,15 @@ public class BattleManager : MonoBehaviour
     }
 
     public void BattleWon() {
+        rewardScreen = true;
         victoryScreen.SetActive(true);
         player.currentAP = player.maxAP; //to not have the cards disabled
         RewardManager rm = victoryScreen.GetComponent<RewardManager>();
         rm.CardRewards();
+        AudioManager.Instance().Play("MapTheme");
     }
     public void BattleLost() {
         defeatScreen.SetActive(true);
+        AudioManager.Instance().Play("MainMenuTheme");
     }
 }

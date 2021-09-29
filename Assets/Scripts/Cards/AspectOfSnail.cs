@@ -8,6 +8,7 @@ public class AspectOfSnail : Card {
     public override void Action() {
         if(CheckIfParentIsPlayer()) {
             Player player = Player.Instance();
+            PlaySound();
             player.TakeSlow(slow);
             player.AddArmor(armor);
             player.UseAP(costAP);

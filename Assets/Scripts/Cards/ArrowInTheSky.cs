@@ -8,6 +8,7 @@ public class ArrowInTheSky : Card {
     public override void Action() { 
         if(CheckIfParentIsEnemy() || CheckIfParentIsPlayer()) {
             SkyArrow instance = Instantiate(skyArrow, Player.Instance().deckGO.transform);
+            PlaySound();
             Player.Instance().realDeck.Add(instance);
             Draggable d = instance.GetComponent<Draggable>();
             d.card = instance;

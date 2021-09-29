@@ -99,6 +99,9 @@ MonoBehaviour:
   cardDescriptionText: {fileID: 6094007342399141476}
   cardImage: {fileID: 6094007340677114772}
   artImage: {fileID: 6094007342005901627}
+  mixerGroup: {fileID: 8305244124844368316, guid: 6ff44574163c0e742b8d41aaf632b0a7,
+    type: 2}
+  sfx: {fileID: 8300000, guid: 8d32b8812c5660e488437eab043306a3, type: 3}
   skyArrow: {fileID: 1717300883162857843, guid: b09d2bc63fd77194aba4d5f2cec28bff,
     type: 3}
 --- !u!1 &6094007340677114762

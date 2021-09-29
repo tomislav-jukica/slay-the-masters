@@ -16,7 +16,7 @@ public class RewardManager : MonoBehaviour
         while(rewards.Count < 3) {
             Card c = GetRandomCardReward();
             c.EnableCard();
-            //c.GetComponent<Draggable>().reward = true;
+            c.GetComponent<Draggable>().enabled = false;
             if (!rewards.Contains(c)) {                
                 rewards.Add(c);                
                 GameObject nGO = new GameObject(c.cardName);

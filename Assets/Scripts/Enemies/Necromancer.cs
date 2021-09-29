@@ -5,6 +5,7 @@ using UnityEngine;
 public class Necromancer : Enemy
 {
     public int slowAmount = 2;
+    public float slowChance = 0.33f;
     public Enemy summon;
     public override void ShowAction() {
         BattleManager BM = BattleManager.Instance();
@@ -14,7 +15,7 @@ public class Necromancer : Enemy
                 action = ActionType.NECROMANCY;
             } else {
                 rng = Random.Range(0f, 1f);
-                if (rng <= 0.5f) {
+                if (rng <= slowChance) {
                     action = ActionType.SLOW;
                 }
                 else {
@@ -23,7 +24,7 @@ public class Necromancer : Enemy
             }
         } else {
             rng = Random.Range(0f, 1f);
-            if (rng <= 0.5f) {
+            if (rng <= slowChance) {
                 action = ActionType.SLOW;
             }
             else {

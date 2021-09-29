@@ -9,6 +9,7 @@ public class KnifeThrow : Card {
     public override void Action() { 
         if(CheckIfParentIsEnemy()) {            
             Enemy enemy = this.GetComponentInParent<Enemy>();
+            PlaySound();
             this.RemoveFromHand();
             enemy.TakeDamage(dmg);
             Player.Instance().UseAP(costAP);            

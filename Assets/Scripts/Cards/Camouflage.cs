@@ -8,6 +8,7 @@ public class Camouflage : Card {
 
     public override void Action() { 
         if(CheckIfParentIsPlayer()) {
+            PlaySound();
             Player.Instance().Hide(turns);            
             Player.Instance().UseAP(costAP);
             this.RemoveFromHand();

@@ -54,6 +54,8 @@ public class Player : MonoBehaviour
         }
         GM = GameManager.Instance();
         InstantiateCards();
+        this.AddArmor(0);
+        Destroy(armorGO.gameObject);
         currentHP = maxHP;
         currentAP = maxAP;
     }
@@ -102,10 +104,10 @@ public class Player : MonoBehaviour
             realDeck = new List<Card>(ShuffleCards(realDeck)); 
         }
         Card nextCard = realDeck[0];
+        nextCard.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
         hand.Add(nextCard);        
         realDeck.Remove(nextCard);
         nextCard.transform.SetParent(handGO.transform);
-
     }
     public static List<Card> ShuffleCards(List<Card> list) {
         for (int i = 0; i < list.Count; i++) {

@@ -9,15 +9,19 @@ using UnityEngine.SceneManagement;
 public class MainMenu : MonoBehaviour
 {
     public Button btnContinue, btnNewGame, btnOptions, btnExit, btnChooseClass;
-    public GameObject pickAClass, loadingScreen;
-    public Image loadingBar;
+    public GameObject pickAClass, loadingScreen, optionsScreen;
+    public Image loadingBar;    
 
+    private void Awake() {
+        
+    }
     private void Start() {
-        btnContinue.onClick.AddListener(Continue);
+        //btnContinue.onClick.AddListener(Continue);
         btnNewGame.onClick.AddListener(NewGame);
         btnOptions.onClick.AddListener(Options);
         btnExit.onClick.AddListener(Exit);
         btnChooseClass.onClick.AddListener(ChooseClass);
+        AudioManager.Instance().Play("MainMenuTheme");
     }
 
     private void ChooseClass() {
@@ -33,8 +37,8 @@ public class MainMenu : MonoBehaviour
 
     }
 
-    private void Options() {
-        throw new NotImplementedException();
+    public void Options() {
+        optionsScreen.SetActive(!optionsScreen.activeSelf);
     }
 
     private void Exit() {

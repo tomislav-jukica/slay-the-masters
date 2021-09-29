@@ -7,7 +7,8 @@ public class Headshot : Card {
     public int dmg;
     
     public override void Action() { 
-        if(CheckIfParentIsEnemy()) {            
+        if(CheckIfParentIsEnemy()) {
+            PlaySound();
             float rng = Random.Range(0f, 1f);
             if (rng >= 0.5f) {
                 Enemy enemy = this.GetComponentInParent<Enemy>();

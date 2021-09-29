@@ -7,6 +7,7 @@ public class BasicShield : Card {
     public override void Action() {
         if(CheckIfParentIsPlayer()) {
             Player player = Player.Instance();
+            PlaySound();
             player.AddArmor(armor);
             player.UseAP(costAP);
             this.RemoveFromHand();

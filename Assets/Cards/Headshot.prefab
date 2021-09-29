@@ -59,7 +59,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6094007340596999258}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2b636b923d626564fbe54a9755c75273, type: 3}
   m_Name: 
@@ -99,6 +99,9 @@ MonoBehaviour:
   cardDescriptionText: {fileID: 6094007342399141476}
   cardImage: {fileID: 6094007340677114772}
   artImage: {fileID: 6094007342005901627}
+  mixerGroup: {fileID: 8305244124844368316, guid: 6ff44574163c0e742b8d41aaf632b0a7,
+    type: 2}
+  sfx: {fileID: 8300000, guid: f8196ec9db2154045b8c962feb239037, type: 3}
   dmg: 20
 --- !u!1 &6094007340677114762
 GameObject:
